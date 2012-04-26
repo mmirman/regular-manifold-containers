@@ -16,6 +16,7 @@ module Data.RegularManifold.OneManifold.Line
        ( D1View(..)
        , makeLine
        , modifyNode
+       , getRelative
        ) where
 
 import Data.RegularManifold.OneManifold
@@ -49,4 +50,4 @@ modifyNode :: D1View t -> t -> D1View t
 modifyNode (Node l r _) a = fmap value $ makeLine left right (Node l r a)
 
 getRelative :: Integer -> D1View t -> D1View t
-getRelative i = composeN (abs i) (if i < 0 then left else right) (abs i)
+getRelative i = composeN (if i < 0 then left else right) (abs i)
