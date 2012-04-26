@@ -31,9 +31,9 @@ Source-repository head
 
 Library
   
-  Build-depends:      base >= 3.5 && < 5.0, 
-  Exposed-modules:    Data.RegularManifold.OneDimension,
-                      Data.RegularManifold.OneDimension.Line,
-		      Data.RegularManifold.OneDimension.Circle
+  Build-depends:      base >= 3.5 && < 5.0, useful-combinators >= 0.0
+  Exposed-modules:    Data.RegularManifold.OneManifold,
+                      Data.RegularManifold.OneManifold.Line,
+		      Data.RegularManifold.OneManifold.Circle
   
-  Extensions: 
+  Extensions: Trustworthy
