@@ -15,8 +15,10 @@
 module Data.RegularManifold.OneManifold.Line 
        ( D1View(..)
        , makeLine
-       , modifyNode
+       , rewriteNode
        , getRelative
+       , rewriteRelative
+       , mapLineAlternate
        ) where
 
 import Data.RegularManifold.OneManifold
@@ -46,8 +48,25 @@ makeLine fL fR init = i
         iL = mapLineL fL i i
         iR = mapLineR fR i i
 
-modifyNode :: D1View t -> t -> D1View t
-modifyNode (Node l r _) a = fmap value $ makeLine left right (Node l r a)
+-- | @'rewriteNode' a view@ returns a new infinite list with @a@
+-- as the new viewpoint and all other nodes the same as in @view@
+rewriteNode :: t -> D1View t -> D1View t
+rewriteNode a (Node l r _) = fmap value $ makeLine left right (Node l r a)
 
-getRelative :: Integer -> D1View t -> D1View t
+-- | @'getRelative' n view@ returns the node @n@ nodes to the 'left'
+-- or 'right' of @view@ depending on whether @n@ was negative or positive.
+-- It is 'id' when @n@ is zero.
+getRelative :: (Ord a , Num a) => a -> D1View t -> D1View t
 getRelative i = composeN (if i < 0 then left else right) (abs i)
+
+-- | @'rewriteRelative' n v view@ returns the infinite list with @v@ 
+-- in the @n@ position relative to @view@.
+rewriteRelative :: (Ord a , Num a) => a -> t -> D1View t -> D1View t
+rewriteRelative i t = getRelative (-i) . rewriteNode t . getRelative i
+
+-- | @'mapLineAlternate' fL fR line@ maps @fL@ down the left side of @line@
+-- and @fR@ down the right side of @line@. It leaves the view node alone.
+mapLineAlternate :: (t -> t) -> (t -> t) -> D1View t -> D1View t
+mapLineAlternate fl fr = fmap value . makeLine left' right'
+  where left' l = (left l) { value = fl $ value $ left l }
+        right' r = (left r) { value = fr $ value $ right r }

@@ -17,6 +17,8 @@ import Data.RegularManifold.OneManifold.Line
 
 integers = makeLine (-1 +) (+ 1) 0
 
-integersAtTen = modifyNode integers 10
+integersAtTen = rewriteNode 10 integers
+
+integersBelowZeroFive = mapLineAlternate (const 5) id integers
 
 evenIntegers = fmap (* 2) integers
