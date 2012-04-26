@@ -1,0 +1,5 @@
+A library for constructing and manipulating certain 
+data structures who's link graphs have interesting properties,
+such as infinite doubly linked lists, and doubly linked cyclic lists.
+These data structures are strongly connected and strongly regular. 
+In addition, they should each represent a manifold.

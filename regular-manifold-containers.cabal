@@ -1,0 +1,39 @@
+Name:                regular-manifold-containers
+Version:             0.0.0.0
+Description:         A library for constructing and manipulating certain 
+                     data structures who's link graphs have interesting properties,
+                     such as infinite doubly linked lists, and doubly linked cyclic lists.
+                     These data structures are strongly connected and strongly regular. 
+                     In addition, they should each represent a manifold.
+
+Synopsis:	     A library for constructing and manipulating 
+                     data structures with some nice properties.
+
+Homepage:            https://github.com/mmirman/regular-manifold-containers
+
+License:             GPL-3
+
+License-file:        LICENSE
+
+Author:              Matthew Mirman
+
+Maintainer:          Matthew Mirman <mmirman@andrew.cmu.edu>
+
+Category:            Data
+
+Build-type:          Simple
+
+Cabal-version:       >=1.6
+
+Source-repository head
+  Type:     git
+  Location: git://github.com/mmirman/regular-manifold-containers.git
+
+Library
+  
+  Build-depends:      base >= 3.5 && < 5.0, 
+  Exposed-modules:    Data.RegularManifold.OneDimension,
+                      Data.RegularManifold.OneDimension.Line,
+		      Data.RegularManifold.OneDimension.Circle
+  
+  Extensions: 
