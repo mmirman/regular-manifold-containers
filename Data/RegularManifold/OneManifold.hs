@@ -23,5 +23,3 @@ data D1View a = Node { left  :: D1View a
                      , right :: D1View a
                      , value :: a 
                      }
-                
-nats = 0:map (+1) nats
