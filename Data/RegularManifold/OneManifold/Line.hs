@@ -32,11 +32,11 @@ instance Functor D1View where
           iL = mapLineL f l iC
           iR = mapLineR f r iC
 
-mapLineL f (Node l _ p) r = k
-  where k = Node (mapLineL f l k) r (f p)
+mapLineL f (Node l _ v) r = k
+  where k = Node (mapLineL f l k) r (f v)
 
-mapLineR f (Node _ r p) l = k
-  where k = Node l (mapLineR f r k) (f p)
+mapLineR f (Node _ r v) l = k
+  where k = Node l (mapLineR f r k) (f v)
 
 -- | @'makeLine' fL fR init@ acts like 'iterate' in two dimensions
 -- where @fL@ is iterated to the left, and @fR@ is iterated to the right

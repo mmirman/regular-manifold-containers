@@ -19,8 +19,9 @@ module Data.RegularManifold.OneManifold
 -- | @'D1View' a@ represents a viewpoint to a doubly linked 
 -- data structure
 -- in one dimension.  It can only be cyclic or infinite.
-data D1View a = Node { left :: D1View a
-                     , right:: D1View a
-                     , value:: a 
+data D1View a = Node { left  :: D1View a
+                     , right :: D1View a
+                     , value :: a 
                      }
-            deriving (Show, Read, Eq)
+                
+nats = 0:map (+1) nats
