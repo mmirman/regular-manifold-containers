@@ -1,4 +1,3 @@
-{-# LANGUAGE Trustworthy #-}
 -----------------------------------------------------------------------------
 -- |
 -- Module      :  Data.RegularManifold.OneManifold

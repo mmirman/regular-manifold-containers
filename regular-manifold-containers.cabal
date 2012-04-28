@@ -19,7 +19,7 @@ Author:              Matthew Mirman
 
 Maintainer:          Matthew Mirman <mmirman@andrew.cmu.edu>
 
-Category:            Data
+Category:            Data, Comonads
 
 Build-type:          Simple
 
@@ -30,10 +30,9 @@ Source-repository head
   Location: git://github.com/mmirman/regular-manifold-containers.git
 
 Library
-  
-  Build-depends:      base >= 3.5 && < 5.0, useful-combinators >= 0.0
-  Exposed-modules:    Data.RegularManifold.OneManifold,
-                      Data.RegularManifold.OneManifold.Line,
-		      Data.RegularManifold.OneManifold.Circle
-  
-  Extensions: Trustworthy
+
+  Build-depends:      base >= 3.5 && < 5.0,
+                      comonad >= 0.9 && < 1.1
+  Exposed-modules:    Control.UsefulCombinators
+                      Data.RegularManifold.OneManifold,
+                      Data.RegularManifold.OneManifold.Line
