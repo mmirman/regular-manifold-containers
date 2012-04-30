@@ -42,8 +42,7 @@ getRight = right
 getValue = value
 
 -- | @'Line' a@ represents a viewpoint to a doubly linked 
--- data structure
--- in one dimension.  It can only be cyclic or infinite.
+-- Line data structure of infinite length. 
 data Line a = Node { left  :: Line a
                    , value :: a 
                    , right :: Line a

@@ -34,4 +34,5 @@ Library
   Build-depends:      base >= 3.5 && < 5.0,
                       comonad >= 0.9 && < 1.2
   Exposed-modules:    Control.UsefulCombinators,
-                      Data.RegularManifold.OneManifold.Line
+                      Data.RegularManifold.OneManifold.Line,
+                      Data.RegularManifold.OneManifold.Circle
