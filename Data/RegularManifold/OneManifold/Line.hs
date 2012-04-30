@@ -69,7 +69,7 @@ mapLineL f v@(Node l _ _) r = k
 mapLineR f v@(Node _ _ r) l = k
   where k = Node l (f v) (mapLineR f r k)
 
--- | @'makeLine' fL fR init@ acts like 'iterate' in two dimensions
+-- | @'makeLine' fL fR init@ acts like 'iterate' in in two directions
 -- where @fL@ is iterated to the left, and @fR@ is iterated to the right
 -- both starting with the value @init@.  The result is a doubly linked
 -- line.

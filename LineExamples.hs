@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------
 -- |
--- Module      :  Examples
+-- Module      :  LineExamples
 -- Copyright   :  (c) Matthew Mirman 2012
 -- License     :  GPL-3 
 -- 
@@ -10,7 +10,7 @@
 --  Some examples of initialization of the data structures.
 -----------------------------------------------------------------------------
 
-module Examples where
+module LineExamples where
 
 import Data.RegularManifold.OneManifold.Line
 import Control.Comonad
