@@ -21,4 +21,4 @@ integersAtTen = rewriteNode 10 integers
 
 integersBelowZeroFive = mapLineAlternate (const 5) id integers
 
-evenIntegers = fmap (* 2) integers
+evenIntegers = fmap (* 2) integersd
