@@ -24,7 +24,7 @@ integersBelowZeroFive = mapLineAlternate (const 5) id integers
 evenIntegers = fmap (* 2) integers
 
 rule30update cell = 
-  case (value $ left cell, value cell, value $ right cell) of
+  case (getValue $ getLeft cell, getValue cell, getValue $ getRight cell) of
     (True, True, _) -> False
     (True, False, True) -> False
     (False, False, False) -> False
