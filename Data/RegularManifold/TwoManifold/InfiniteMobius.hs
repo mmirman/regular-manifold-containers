@@ -39,32 +39,29 @@ data InfiniteMobiusN a = Node { left  :: InfiniteMobiusN a
                               , right :: InfiniteMobiusN a
                               }
 
-iff t b = if b then t else id
-   
-infMobiusN :: Integer -> InfiniteMobius (Integer, Integer)
-infMobiusN n = CNode (head f) n
-  where total = 2 * n
+infMobiusN' :: Integer -> InfiniteMobius (Integer, Integer)
+infMobiusN' n = CNode outHead n  
+  where (outHead, inHead) = makeStrip 0 (outHead, inHead)
         
-        getPrev i = fromInteger $ (i - 1) `mod` total
-        getNext i = fromInteger $ (i + 1) `mod` total
-          
-        makeFromI v f s i = Node (f !! getNext i) u (v, i) d (f !! getPrev i)
-          where (u,d) = swap `iff` (i >= n) $ (f !! fromInteger ((i + n) `mod` total), s !! fromInteger i)
-          
-        makeLfromI v f s = flip map [0..total] $ makeFromI v f s
+        makeStrip v (pOutHead,pInHead) = (fOutHead, fInHead)
+          where (sOutHead,sInHead) = makeStrip (v+1) (fOutHead, fInHead)
+                (fOutHead,fOutTail) = makeWith v 0 fInTail sOutHead pInHead fInHead
+                (fInHead,fInTail)   = makeWith v n fOutTail pOutHead sInHead fOutHead
         
-        f = makeLfromI 0 f s
-        s = edge 1 f
+        makeWith v io = makeWith' (n - 1) where
+          makeWith' c prev' up' down' end' = case c of
+            0 -> (tail', tail')
+              where tail' = Node prev' up' (v,io) down' end'
+            _ -> (curr',tail')
+              where curr' = Node prev' up' (v,c + io) down' next'
+                    (next',tail') = makeWith' (c-1) curr' (right up') (right down') end'
         
-        edge v p = c
-          where n = edge (v+1) c
-                c = makeLfromI v c n
 {-
-prod :: !A -> B
+prod :: !!A -> B
 prod blah = (single :: A -> B) c 
   where c = blah
 
-prod :: A -> B
+prod :: !A -> B
 prod blah = (single :: A -> B) blah 
 
 prod :: A -> B
@@ -80,18 +77,35 @@ inferring bang - check if a use occurs more than once, and place a bang around i
 only if it does).  start with the smallest expressions first.  
 
 
-
-
 \blah r . (\c . c ) ((\f.(\x.xx) (\x.f (xx) )) blah) 
-
-
 
 
 prod :: !Blah -> t
 prod blah = c
 
-   t2 -> t3
---------------------
-  \x:t.a : t2
+H1 |- C  ... Hn|- C
+-------------------- !n!R
+ H1,...Hn |- !n! C
+
+ G,C,...,C(n coppies) |- B
+--------------------------- Intentional Exponential Contraction
+ G,!n!C |- B
+
+  G |- B
+----------- Uncontrolled Weakening
+ G,C |- B
+
+
+  G, A |- B
+------------
+ G|- A -> B
+
+ H|- A     G, B |- C
+----------------------
+   H,G, A -> B |- C
+
+!A means we can use A twice
+
+
 
 -}
