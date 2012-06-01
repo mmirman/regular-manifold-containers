@@ -20,24 +20,24 @@
 -- will behave as specified.
 -----------------------------------------------------------------------------
 
-module Data.RegularManifold.TwoManifold.InfiniteMobius where
-
+module Data.RegularManifold.TwoManifold.InfiniteMobius ( InfiniteMobius()
+                                                       , infMobiusN
+                                                       , getLeft
+                                                       , getRight
+                                                       , getUp
+                                                       , getDown
+                                                       , getValue 
+                                                       ) where
 import Control.UsefulCombinators
 import Control.Comonad
 import Data.Tuple (swap)
-{-
-
-import System.IO.Unsafe
-seqL l r = foldr seq r l
-moop = (\a -> seqL [a 1, a 2, a 4] ()) $ \i -> unsafePerformIO $ putStrLn $ "Lazy "++show i
-
-
-Idear:  Lazyness only evaluates it's argument once right?
-
-we can use unsafePerformIO with stateful things to make an affine type checker super compact
--}
 
 getLeft (CNode m n) = CNode (left m) n
+getRight (CNode m n) = CNode (right m) n
+getUp (CNode m n) = CNode (up m) n
+getDown (CNode m n) = CNode (down m) n
+
+getValue = value . mobius
 
 -- | @'InfiniteMobius' a@ represents a viewpoint to a doubly linked 
 -- mobius data structure.  It also includes with it the 
@@ -92,58 +92,4 @@ instance Extend InfiniteMobius where
                       ~(next',tail') = makeWith' (c-1) curr' (right up') (right down') end'
 
 instance Comonad InfiniteMobius where
-  extract = value . mobius
-  
-{-
-prod :: !!A -> B
-prod blah = (single :: A -> B) c 
-  where c = blah
-
-prod :: !A -> B
-prod blah = (single :: A -> B) blah 
-
-prod :: A -> B
-prod blah = (single :: A -> B) blah 
-
-           . ; a : A |-  a : A
-       ----------------------------
-       . ; . |- (\a . a) : (A -> A)
-     ---------------------------------
-      . ; . |- !(\a . a) : !(A -> A)
-
-inferring bang - check if a use occurs more than once, and place a bang around it if it does (and 
-only if it does).  start with the smallest expressions first.  
-
-
-\blah r . (\c . c ) ((\f.(\x.xx) (\x.f (xx) )) blah) 
-
-
-prod :: !Blah -> t
-prod blah = c
-
-H1 |- C  ... Hn|- C
--------------------- !n!R
- H1,...Hn |- !n! C
-
- G,C,...,C(n coppies) |- B
---------------------------- Intentional Exponential Contraction
- G,!n!C |- B
-
-  G |- B
------------ Uncontrolled Weakening
- G,C |- B
-
-
-  G, A |- B
-------------
- G|- A -> B
-
- H|- A     G, B |- C
-----------------------
-   H,G, A -> B |- C
-
-!A means we can use A twice
-
-
-
--}
+  extract = getValue
