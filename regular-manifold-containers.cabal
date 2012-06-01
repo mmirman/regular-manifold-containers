@@ -32,7 +32,10 @@ Source-repository head
 Library
 
   Build-depends:      base >= 3.5 && < 5.0,
-                      comonad >= 0.9 && < 1.2
-  Exposed-modules:    Control.UsefulCombinators,
-                      Data.RegularManifold.OneManifold.Line,
-                      Data.RegularManifold.OneManifold.Circle
+                      comonad >= 0.9 && < 1.2,
+                      useful-combinators >= 0
+  Exposed-modules:    Data.RegularManifold.OneManifold.Line,
+                      Data.RegularManifold.OneManifold.Circle,
+                      Data.RegularManifold.TwoManifold.Plane,
+                      Data.RegularManifold.TwoManifold.Cylinder
+
