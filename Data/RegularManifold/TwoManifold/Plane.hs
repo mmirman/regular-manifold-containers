@@ -21,28 +21,25 @@
 
 module Data.RegularManifold.TwoManifold.Plane
        ( Plane()
-       , getLeft
-       , getRight
-       , getUp
-       , getDown
-       , getValue
        , makePlane
+       , coordinates
        ) where
 
 import Control.UsefulCombinators
 import Control.Comonad
+import Data.RegularManifold.TwoManifold.TwoManifoldClass
 
--- | @'getLeft' n@ gets the node to the left of @n@.
-getLeft = left
--- | @'getRight' n@ gets the node to the right of @n@.
-getRight = right
+instance TwoManifold (Plane a) where
+  getLeft = left
+  getRight = right
+  getUp = up
+  getDown = down
 
--- | @'getUp' n@ gets the node above @n@.
-getUp = up
--- | @'getDown' n@ gets the node below @n@.
-getDown = down
--- | @'getValue' n@ gets the value in @n@.
-getValue = value
+coordinates = makePlane fL fR fD fU (fL . fD) (fR . fD) (fL . fU) (fR . fU)
+    where fL (i,j) = (i-1,j)
+          fR (i,j) = (i+1,j)
+          fD (i,j) = (i,j-1)
+          fU (i,j) = (i,j+1)
 
 -- | @'Line' a@ represents a viewpoint to a doubly linked 
 -- Line data structure of infinite length. 

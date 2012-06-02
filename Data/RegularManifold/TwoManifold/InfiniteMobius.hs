@@ -21,23 +21,18 @@
 -----------------------------------------------------------------------------
 
 module Data.RegularManifold.TwoManifold.InfiniteMobius ( InfiniteMobius()
-                                                       , infMobiusN
-                                                       , getLeft
-                                                       , getRight
-                                                       , getUp
-                                                       , getDown
-                                                       , getValue 
+                                                       , makeInfMobius
                                                        ) where
 import Control.UsefulCombinators
 import Control.Comonad
+import Data.RegularManifold.TwoManifold.TwoManifoldClass
 import Data.Tuple (swap)
 
-getLeft (CNode m n) = CNode (left m) n
-getRight (CNode m n) = CNode (right m) n
-getUp (CNode m n) = CNode (up m) n
-getDown (CNode m n) = CNode (down m) n
-
-getValue = value . mobius
+instance TwoManifold (InfiniteMobius a) where
+  getLeft (CNode m n) = CNode (left m) n
+  getRight (CNode m n) = CNode (right m) n
+  getUp (CNode m n) = CNode (up m) n
+  getDown (CNode m n) = CNode (down m) n
 
 -- | @'InfiniteMobius' a@ represents a viewpoint to a doubly linked 
 -- mobius data structure.  It also includes with it the 
@@ -52,8 +47,8 @@ data InfiniteMobiusN a = Node { left  :: InfiniteMobiusN a
                               , right :: InfiniteMobiusN a
                               }
 
-infMobiusN :: Integer -> InfiniteMobius (Integer, Integer)
-infMobiusN n = CNode outHead n  
+makeInfMobius :: Integer -> InfiniteMobius (Integer, Integer)
+makeInfMobius n = CNode outHead n  
   where (outHead, inHead) = makeStrip 0 (outHead, inHead)
         
         makeStrip v (pOutHead,pInHead) = (fOutHead, fInHead)
@@ -92,4 +87,4 @@ instance Extend InfiniteMobius where
                       ~(next',tail') = makeWith' (c-1) curr' (right up') (right down') end'
 
 instance Comonad InfiniteMobius where
-  extract = getValue
+  extract = value . mobius
