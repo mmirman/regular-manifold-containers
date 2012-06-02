@@ -28,7 +28,7 @@ import Control.Comonad
 import Data.RegularManifold.TwoManifold.TwoManifoldClass
 import Data.Tuple (swap)
 
-instance TwoManifold (InfiniteMobius a) where
+instance TwoManifold InfiniteMobius where
   getLeft (CNode m n) = CNode (left m) n
   getRight (CNode m n) = CNode (right m) n
   getUp (CNode m n) = CNode (up m) n

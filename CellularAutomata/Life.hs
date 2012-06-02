@@ -14,11 +14,14 @@
 -- Abstract game of life.
 -----------------------------------------------------------------------------
 
-module CellularAutomata.Life where
+module CellularAutomata.Life ( nextGen
+                             , conway'sGameOfLife
+                             ) where
 
 import Data.RegularManifold.ContextualClass
 
 import Control.Comonad
+import Debug.Trace
 
 within s v l = s <= v && v <= l
 
@@ -27,3 +30,4 @@ nextGen s l = extend $ within s l . length . filter extract . getContext
 
 conway'sGameOfLife :: (Comonad w, Contextual (w Bool)) => w Bool -> [w Bool]
 conway'sGameOfLife = iterate $ nextGen 2 3
+
